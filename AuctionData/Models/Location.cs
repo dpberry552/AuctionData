@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
+using AuctionData.Interfaces;
 
 namespace AuctionData.Models
 {
     [Table("AA_Locations")]
-    class Location : BusinessObject<Location>
+    class Location : BusinessObject<Location>, IDeletable
     {
         public string Title { get; set; }
         public string StreetAddress { get; set; }

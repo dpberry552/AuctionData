@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using AuctionData.Interfaces;
 
 namespace AuctionData.Models
 {
     [Table("AA_Auctions")]
-    class Auction : BusinessObject<Auction>
+    class Auction : BusinessObject<Auction>, IDeletable
     {
         public string Title { get; set; }
         public string Description { get; set; }
