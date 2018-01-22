@@ -9,7 +9,7 @@ using AuctionData.Interfaces;
 namespace AuctionData.Models
 {
     [Table("AA_Locations")]
-    class Location : BusinessObject<Location>, IDeletable
+    public class Location : BusinessObject<Location>, IDeletable
     {
         public string Title { get; set; }
         public string StreetAddress { get; set; }

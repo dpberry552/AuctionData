@@ -9,7 +9,7 @@ using AuctionData.Interfaces;
 namespace AuctionData.Models
 {
     [Table("AA_Items")]
-    class Item : BusinessObject<Item>, IDeletable
+    public class Item : BusinessObject<Item>, IDeletable
     {
         public string Title { get; set; }
         public string Description { get; set; }
