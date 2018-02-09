@@ -11,7 +11,7 @@ using System.IO;
 
 namespace AuctionData.Models
 {
-    public abstract class BusinessObject<T>
+    public abstract class BusinessObject
     {
         [Key]
         public int Id { get; set; }
@@ -20,19 +20,19 @@ namespace AuctionData.Models
         public DateTime WhenCreated { get; set; }
 
         public static T GetById<T>(IDbConnection db, int id)
-            where T : BusinessObject<T>
+            where T : BusinessObject
         {
             return db.Get<T>(id);
         }
 
         public static IEnumerable<T> GetAll<T>(IDbConnection db)
-            where T : BusinessObject<T>
+            where T : BusinessObject
         {
             return GetAll<T>(db, false, false);
         }
 
         public static IEnumerable<T> GetAll<T>(IDbConnection db, bool includeDeletes, bool includeHistory)
-            where T : BusinessObject<T>
+            where T : BusinessObject
         {
             var isDeletable = typeof(IDeletable).IsAssignableFrom(typeof(T));
             var maintainHistory = typeof(IHistoricalData).IsAssignableFrom(typeof(T));
@@ -42,36 +42,36 @@ namespace AuctionData.Models
             return deletesHandled.Where(i => !maintainHistory || (i as IHistoricalData).ValidToDate > DateTime.Now || includeHistory);
         }
 
-        public bool Persist<T>(IDbConnection db)
-            where T : BusinessObject<T>
+        public static bool Persist<T>(IDbConnection db, T t)
+            where T : BusinessObject
         {
 
             //flag to indicate whether this object implements the IHistoricalData interface
             var maintainHistory = typeof(IHistoricalData).IsAssignableFrom(typeof(T));
 
-            if (Id > 0)
+            if (t.Id > 0)
             {
                 //if the new incoming version of the record is the different than the one existing in the db...
-                if (!this.EqualsCurrentVersion<T>(db))
+                if (!t.EqualsCurrentVersion<T>(db))
                 {
-                    LastModified = DateTime.Now;
+                    t.LastModified = DateTime.Now;
                     //if we maintain history for this object...
                     if (maintainHistory)
                     {
-                        T curr = GetById<T>(db, Id);
+                        T curr = GetById<T>(db, t.Id);
                         //set ValidToDate and MasterId fields appropriately for existing and new versions of the object
                         (curr as IHistoricalData).ValidToDate = DateTime.Now;
-                        (this as IHistoricalData).MasterId = Id;
-                        (curr as IHistoricalData).MasterId = Id;
-                        curr.Id = 0;
+                        //(t as IHistoricalData).MasterId = t.Id;
+                        (curr as IHistoricalData).MasterId = t.Id;
+                        //t.Id = 0;
                         //update the existing (now historical) version and insert the new version
-                        db.Update(this);
-                        db.Insert(curr);
+                        db.Update<T>(t);
+                        db.Insert<T>(curr);
                     }
                     //if we are not maintaining history for this object...
                     else
                     {
-                        db.Update(this);
+                        db.Update(t);
                     }
                     return true;
                 }
@@ -83,16 +83,26 @@ namespace AuctionData.Models
             //the record does not already exist in the db
             else
             {
-                Console.WriteLine("object already exists in the db");
-                WhenCreated = DateTime.Now;
-                db.Insert(this);
+                Console.WriteLine("object does not exist in the db");
+                t.WhenCreated = DateTime.Now;
+                t.LastModified = DateTime.Now;
+                Console.WriteLine(t.Serialize());
+                try
+                {
+                    Console.WriteLine("Object type: " + t.GetType());
+                    db.Insert<T>(t);
+                }
+                catch (System.Data.SqlClient.SqlException e)
+                {
+
+                }
                 return false;
             }
         }
 
 
         public bool EqualsCurrentVersion<T>(IDbConnection db)
-            where T : BusinessObject<T>
+            where T : BusinessObject
         {
             T curr = GetById<T>(db, Id);
             string newVersion = this.Serialize();

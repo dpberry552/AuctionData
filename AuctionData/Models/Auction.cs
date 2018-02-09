@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using AuctionData.Interfaces;
+using System.Data;
 
 namespace AuctionData.Models
 {
     [Table("AA_Auctions")]
-    public class Auction : BusinessObject<Auction>, IDeletable
+    public class Auction : BusinessObject, IDeletable, IHistoricalData
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -20,5 +21,9 @@ namespace AuctionData.Models
         public int LocationId { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime ValidToDate { get; set; }
+        public int MasterId { get; set; }
+
+
+
     }
 }

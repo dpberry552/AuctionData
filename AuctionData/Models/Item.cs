@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 using AuctionData.Interfaces;
+using System.Data;
+using Dapper;
 
 namespace AuctionData.Models
 {
     [Table("AA_Items")]
-    public class Item : BusinessObject<Item>, IDeletable
+    public class Item : BusinessObject, IDeletable
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -19,5 +21,10 @@ namespace AuctionData.Models
         public int AuctionId { get; set; }
         public int Rank { get; set; }
         public bool IsDeleted { get; set; }
+
+        public static IEnumerable<Item> GetByAuctionId(IDbConnection db, int auctionId)
+        {
+            return db.Query<Item>(@"select * from AA_Items where AuctionId = @id order by rank", new { id = auctionId });
+        }
     }
 }
