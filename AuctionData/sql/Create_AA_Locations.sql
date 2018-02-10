@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_Locations]    Script Date: 1/13/2018 3:40:50 PM ******/
+/****** Object:  Table [dbo].[AA_Locations]    Script Date: 2/10/2018 6:49:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,6 +17,8 @@ CREATE TABLE [dbo].[AA_Locations](
 	[Zip] [varchar](20) NOT NULL,
 	[Phone] [varchar](20) NOT NULL,
 	[IsDeleted] [bit] NOT NULL,
+	[WhenCreated] [datetime] NOT NULL,
+	[LastModified] [datetime] NOT NULL,
  CONSTRAINT [PK_AA_Locations] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -25,5 +27,11 @@ CREATE TABLE [dbo].[AA_Locations](
 GO
 
 ALTER TABLE [dbo].[AA_Locations] ADD  CONSTRAINT [DF_AA_Locations_IsDeleted]  DEFAULT ((0)) FOR [IsDeleted]
+GO
+
+ALTER TABLE [dbo].[AA_Locations] ADD  CONSTRAINT [DF_AA_Locations_WhenCreated]  DEFAULT (getdate()) FOR [WhenCreated]
+GO
+
+ALTER TABLE [dbo].[AA_Locations] ADD  CONSTRAINT [DF_AA_Locations_LastModified]  DEFAULT (getdate()) FOR [LastModified]
 GO
 

@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_Items]    Script Date: 1/13/2018 3:40:36 PM ******/
+/****** Object:  Table [dbo].[AA_Items]    Script Date: 2/10/2018 6:49:10 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -18,6 +18,8 @@ CREATE TABLE [dbo].[AA_Items](
 	[AuctionId] [int] NULL,
 	[Rank] [int] NOT NULL,
 	[IsDeleted] [bit] NOT NULL,
+	[WhenCreated] [datetime] NOT NULL,
+	[LastModfied] [datetime] NOT NULL,
  CONSTRAINT [PK_AA_Items] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -35,6 +37,12 @@ ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_Rank]  DEFAULT ((100))
 GO
 
 ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_IsDeleted]  DEFAULT ((0)) FOR [IsDeleted]
+GO
+
+ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_WhenCreated]  DEFAULT (getdate()) FOR [WhenCreated]
+GO
+
+ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_LastModfied]  DEFAULT (getdate()) FOR [LastModfied]
 GO
 
 ALTER TABLE [dbo].[AA_Items]  WITH CHECK ADD  CONSTRAINT [FK_AA_Items_AA_Auctions] FOREIGN KEY([AuctionId])

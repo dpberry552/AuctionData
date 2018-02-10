@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_AuctionMedia]    Script Date: 1/13/2018 3:39:57 PM ******/
+/****** Object:  Table [dbo].[AA_AuctionMedia]    Script Date: 2/10/2018 6:47:38 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,7 +13,10 @@ CREATE TABLE [dbo].[AA_AuctionMedia](
 	[AuctionId] [int] NOT NULL,
 	[MediaId] [int] NOT NULL,
 	[Type] [varchar](50) NOT NULL,
+	[Description] [varchar](255) NOT NULL,
 	[IsDeleted] [bit] NOT NULL,
+	[WhenCreated] [datetime] NOT NULL,
+	[LastModified] [datetime] NOT NULL,
  CONSTRAINT [PK_AA_AuctionMedia] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -22,6 +25,12 @@ CREATE TABLE [dbo].[AA_AuctionMedia](
 GO
 
 ALTER TABLE [dbo].[AA_AuctionMedia] ADD  CONSTRAINT [DF_AA_AuctionMedia_IsDeleted]  DEFAULT ((0)) FOR [IsDeleted]
+GO
+
+ALTER TABLE [dbo].[AA_AuctionMedia] ADD  CONSTRAINT [DF_AA_AuctionMedia_WhenCreated]  DEFAULT (getdate()) FOR [WhenCreated]
+GO
+
+ALTER TABLE [dbo].[AA_AuctionMedia] ADD  CONSTRAINT [DF_AA_AuctionMedia_LastModified]  DEFAULT (getdate()) FOR [LastModified]
 GO
 
 ALTER TABLE [dbo].[AA_AuctionMedia]  WITH CHECK ADD  CONSTRAINT [FK_AA_AuctionMedia_AA_Auction] FOREIGN KEY([AuctionId])

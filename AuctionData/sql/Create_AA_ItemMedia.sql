@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_ItemMedia]    Script Date: 1/13/2018 3:40:25 PM ******/
+/****** Object:  Table [dbo].[AA_ItemMedia]    Script Date: 2/10/2018 6:49:01 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,6 +14,8 @@ CREATE TABLE [dbo].[AA_ItemMedia](
 	[Type] [varchar](50) NOT NULL,
 	[MediaId] [int] NOT NULL,
 	[IsDeleted] [bit] NOT NULL,
+	[WhenCreated] [datetime] NOT NULL,
+	[LastModified] [datetime] NOT NULL,
  CONSTRAINT [PK_AA_ItemMedia] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -22,6 +24,12 @@ CREATE TABLE [dbo].[AA_ItemMedia](
 GO
 
 ALTER TABLE [dbo].[AA_ItemMedia] ADD  CONSTRAINT [DF_AA_ItemMedia_IsDeleted]  DEFAULT ((0)) FOR [IsDeleted]
+GO
+
+ALTER TABLE [dbo].[AA_ItemMedia] ADD  CONSTRAINT [DF_AA_ItemMedia_WhenCreated]  DEFAULT (getdate()) FOR [WhenCreated]
+GO
+
+ALTER TABLE [dbo].[AA_ItemMedia] ADD  CONSTRAINT [DF_AA_ItemMedia_LastModified]  DEFAULT (getdate()) FOR [LastModified]
 GO
 
 ALTER TABLE [dbo].[AA_ItemMedia]  WITH CHECK ADD  CONSTRAINT [FK_AA_ItemMedia_AA_Item] FOREIGN KEY([ItemId])

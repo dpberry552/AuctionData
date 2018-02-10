@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_Auctions]    Script Date: 1/13/2018 3:40:10 PM ******/
+/****** Object:  Table [dbo].[AA_Auctions]    Script Date: 2/10/2018 6:47:47 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -18,6 +18,9 @@ CREATE TABLE [dbo].[AA_Auctions](
 	[LocationId] [int] NOT NULL,
 	[IsDeleted] [bit] NOT NULL,
 	[ValidToDate] [datetime] NOT NULL,
+	[WhenCreated] [datetime] NOT NULL,
+	[LastModified] [datetime] NOT NULL,
+	[MasterId] [int] NOT NULL,
  CONSTRAINT [PK_AA_Auctions] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -32,6 +35,15 @@ ALTER TABLE [dbo].[AA_Auctions] ADD  CONSTRAINT [DF_AA_Auctions_IsDeleted]  DEFA
 GO
 
 ALTER TABLE [dbo].[AA_Auctions] ADD  CONSTRAINT [DF_AA_Auctions_ValidToDate]  DEFAULT ('9999-12-31') FOR [ValidToDate]
+GO
+
+ALTER TABLE [dbo].[AA_Auctions] ADD  CONSTRAINT [DF_AA_Auctions_WhenCreated]  DEFAULT (getdate()) FOR [WhenCreated]
+GO
+
+ALTER TABLE [dbo].[AA_Auctions] ADD  CONSTRAINT [DF_AA_Auctions_LastModified]  DEFAULT (getdate()) FOR [LastModified]
+GO
+
+ALTER TABLE [dbo].[AA_Auctions] ADD  CONSTRAINT [DF_AA_Auctions_MasterId]  DEFAULT ((0)) FOR [MasterId]
 GO
 
 ALTER TABLE [dbo].[AA_Auctions]  WITH CHECK ADD  CONSTRAINT [FK_AA_Auctions_AA_Locations] FOREIGN KEY([LocationId])
