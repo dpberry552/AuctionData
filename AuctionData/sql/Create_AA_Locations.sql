@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_Locations]    Script Date: 2/10/2018 6:49:19 PM ******/
+/****** Object:  Table [dbo].[AA_Locations]    Script Date: 2/17/2018 9:08:14 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,7 +11,7 @@ GO
 CREATE TABLE [dbo].[AA_Locations](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Title] [varchar](50) NOT NULL,
-	[StreeAddress] [varchar](255) NOT NULL,
+	[StreetAddress] [varchar](255) NOT NULL,
 	[City] [varchar](255) NOT NULL,
 	[State] [varchar](2) NOT NULL,
 	[Zip] [varchar](20) NOT NULL,
