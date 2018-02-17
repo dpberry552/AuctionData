@@ -21,7 +21,7 @@ namespace AuctionData.Models
 
         public static IEnumerable<AuctionMedia> GetByAuctionId(IDbConnection db, int auctionId)
         {
-            return db.Query<AuctionMedia>(@"select * from AA_AuctionMedia where AuctionId = @id order by rank", new { id = auctionId });
+            return db.Query<AuctionMedia>(@"select * from AA_AuctionMedia where AuctionId = @id", new { id = auctionId });
         }
     }
 }

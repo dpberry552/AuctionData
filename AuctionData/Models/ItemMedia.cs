@@ -18,9 +18,9 @@ namespace AuctionData.Models
         public int MediaId { get; set; }
         public bool IsDeleted { get; set; }
 
-        public static IEnumerable<ItemMedia> GetByAuctionId(IDbConnection db, int itemId)
+        public static IEnumerable<ItemMedia> GetByItemId(IDbConnection db, int itemId)
         {
-            return db.Query<ItemMedia>(@"select * from AA_ItemMedia where ItemId = @id order by rank", new { id = itemId });
+            return db.Query<ItemMedia>(@"select * from AA_ItemMedia where ItemId = @id", new { id = itemId });
         }
     }
 }

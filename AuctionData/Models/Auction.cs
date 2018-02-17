@@ -23,7 +23,5 @@ namespace AuctionData.Models
         public DateTime ValidToDate { get; set; }
         public int MasterId { get; set; }
 
-
-
     }
 }
