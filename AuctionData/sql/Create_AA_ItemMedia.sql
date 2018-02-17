@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_ItemMedia]    Script Date: 2/17/2018 9:07:59 AM ******/
+/****** Object:  Table [dbo].[AA_ItemMedia]    Script Date: 2/17/2018 11:57:27 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -34,6 +34,7 @@ GO
 
 ALTER TABLE [dbo].[AA_ItemMedia]  WITH CHECK ADD  CONSTRAINT [FK_AA_ItemMedia_AA_Item] FOREIGN KEY([ItemId])
 REFERENCES [dbo].[AA_Items] ([Id])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[AA_ItemMedia] CHECK CONSTRAINT [FK_AA_ItemMedia_AA_Item]

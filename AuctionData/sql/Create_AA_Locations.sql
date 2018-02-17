@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_Locations]    Script Date: 2/17/2018 9:08:14 AM ******/
+/****** Object:  Table [dbo].[AA_Locations]    Script Date: 2/17/2018 11:57:43 AM ******/
 SET ANSI_NULLS ON
 GO
 

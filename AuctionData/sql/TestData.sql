@@ -45,11 +45,11 @@ insert into dbo.AA_Auctions
 
 
 insert into dbo.AA_Items
-	(Title, Description, OnlineBidding, MinimumBid, LotNumber, AuctionId, Rank)
-	values('Ford Taurus', '2015 Ford Taurus', 0, 10000, 1, 2, 1);
+	(Title, Description, OnlineBidding, MinimumBid, LotNumber, AuctionId, Rank, LastModfied, IsDeleted, WhenCreated)
+	values('Ford Taurus', '2015 Ford Taurus', 0, 10000, 1, 2, 1, CURRENT_TIMESTAMP, 0, CURRENT_TIMESTAMP);
 insert into dbo.AA_Items
-	(Title, Description, OnlineBidding, MinimumBid, LotNumber, AuctionId, Rank)
-	values('Nissan Altima', '2014 Nissan Altima', 0, 8000, 1, 2, 1);
+	(Title, Description, OnlineBidding, MinimumBid, LotNumber, AuctionId, Rank, LastModfied, IsDeleted, WhenCreated)
+	values('Nissan Altima', '2014 Nissan Altima', 0, 8000, 1, 2, 1, CURRENT_TIMESTAMP, 0, CURRENT_TIMESTAMP);
 insert into dbo.AA_Items
 	(Title, Description, OnlineBidding, MinimumBid, LotNumber, AuctionId, Rank)
 	values('Couch', 'Black leather couch', 1, 100, 1, 1, 1);

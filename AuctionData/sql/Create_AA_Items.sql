@@ -1,7 +1,7 @@
 USE [DNNDev]
 GO
 
-/****** Object:  Table [dbo].[AA_Items]    Script Date: 2/17/2018 9:08:06 AM ******/
+/****** Object:  Table [dbo].[AA_Items]    Script Date: 2/17/2018 11:57:34 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -27,26 +27,9 @@ CREATE TABLE [dbo].[AA_Items](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_OnlineBidding]  DEFAULT ((0)) FOR [OnlineBidding]
-GO
-
-ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_MinimumBid]  DEFAULT ((0)) FOR [MinimumBid]
-GO
-
-ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_Rank]  DEFAULT ((100)) FOR [Rank]
-GO
-
-ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_IsDeleted]  DEFAULT ((0)) FOR [IsDeleted]
-GO
-
-ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_WhenCreated]  DEFAULT (getdate()) FOR [WhenCreated]
-GO
-
-ALTER TABLE [dbo].[AA_Items] ADD  CONSTRAINT [DF_AA_Items_LastModfied]  DEFAULT (getdate()) FOR [LastModfied]
-GO
-
 ALTER TABLE [dbo].[AA_Items]  WITH CHECK ADD  CONSTRAINT [FK_AA_Items_AA_Auctions] FOREIGN KEY([AuctionId])
 REFERENCES [dbo].[AA_Auctions] ([Id])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[AA_Items] CHECK CONSTRAINT [FK_AA_Items_AA_Auctions]

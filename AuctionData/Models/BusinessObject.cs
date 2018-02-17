@@ -83,23 +83,34 @@ namespace AuctionData.Models
             //the record does not already exist in the db
             else
             {
-                Console.WriteLine("object does not exist in the db");
+                //Console.WriteLine("object does not exist in the db");
                 t.WhenCreated = DateTime.Now;
                 t.LastModified = DateTime.Now;
-                Console.WriteLine(t.Serialize());
-                try
-                {
-                    Console.WriteLine("Object type: " + t.GetType());
-                    db.Insert<T>(t);
-                }
-                catch (System.Data.SqlClient.SqlException e)
-                {
-
-                }
+                //Console.WriteLine(t.Serialize());
+                //Console.WriteLine("Object type: " + t.GetType());
+                db.Insert<T>(t);
                 return false;
             }
         }
 
+        public static bool Delete<T>(IDbConnection db, T t)
+            where T : BusinessObject
+        {
+            var isDeletable = typeof(IDeletable).IsAssignableFrom(typeof(T));
+            if(isDeletable)
+            {
+                (t as IDeletable).IsDeleted = true;
+                t.LastModified = DateTime.Now;
+                db.Update<T>(t);
+                return true;
+            }
+            else
+            {
+                //cascading delete logic handled on the DB side
+                db.Delete<T>(t);
+                return false;
+            }
+        }
 
         public bool EqualsCurrentVersion<T>(IDbConnection db)
             where T : BusinessObject

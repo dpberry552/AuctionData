@@ -11,7 +11,7 @@ using System.Data;
 namespace AuctionData.Models
 {
     [Table("AA_Auctions")]
-    public class Auction : BusinessObject, IDeletable, IHistoricalData
+    public class Auction : BusinessObject,  IHistoricalData, IDeletable
     {
         public string Title { get; set; }
         public string Description { get; set; }
